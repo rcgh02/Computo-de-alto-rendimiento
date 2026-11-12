@@ -318,3 +318,40 @@ El archivo se ordenará de forma ascendente, esto es de menor a mayor.
 
 * **Panel resources Ubuntu:** ![Panel resources Ubuntu](images/resources8y.png)
 * **Tiempos:** ![Tiempos](images/timepo8y.png)
+
+* **Comando top:** ![Comando top](images/top8y.png)
+* *Resultado 8 procesos*
+
+> **Tiempo ordenamiento sort :** 40.31 segundos
+
+---
+
+### **Gráfica Procesos vs tiempo de ejecución**
+
+![Procesos vs Tiempo Escritura](images/grafica1y.png)
+* *Procesos vs Tiempo Escritura*
+
+---
+
+### Con parámetro "n" sin escritura de archivo
+
+#### **1 proceso**
+
+* **Tiempos:** ![Tiempos](images/tiempo1n.png)
+* *Resultado 1 proceso*
+
+> **Tiempo ordenamiento sort :** 207.27 segundos
+
+#### **8 procesos**
+
+* **Tiempos:** ![Tiempos](images/timepo8n.png)
+* *Resultado 8 procesos*
+
+> **Tiempo ordenamiento sort :** 40.65 segundos
+
+---
+
+### **Gráfica Procesos vs tiempo de ejecución**
+
+![Procesos vs Tiempo Sin escritura](images/grafican.png)
+* *Procesos vs Tiempo Sin escritura*
