@@ -1,105 +1,70 @@
-\begin{titlepage}
+# Centro de Investigaciones y de Estudios Avanzados del Instituto Politécnico Nacional (Cinvestav)
 
-\normalfont \normalsize  
-\Huge Centro de investigaciones y de estudios avanzados del Instituto Politécnico Nacional  
+![Logo Cinvestav](images/cinvestav_comp_logo.png)
 
-Cinvestav  
+## Proyecto Final Cómputo de Alto Rendimiento
 
-  
- [5pt]
-
-![](cinvestav_comp_logo.png)  
-
-\usefont{OT1}{bch}{b}{n}
-
-\Large{Proyecto Final Cómputo de Alto Rendimiento}  
-
-\usefont{T1}{bch}{b}{n}
-
-\LARGE{Integrantes}  
-
-\Large Jhovany Badillo Cruz
-
-\Large Hugo Miranda Cano
-
-\end{titlepage}
-
-{\Large **Especificaciones de las computadoras**}
-
-*Especificaciones técnicas del Equipo 1.*
-
-\renewcommand{\arraystretch}{1.3}
-\begin{tabularx}{0.85\textwidth}{l X}
-\toprule
-**Componente** & **Detalle**  
-
-\midrule
-**Procesador** & Intel Core i7 de cuatro núcleos  
-
-**Núcleos** & 4 núcleos  
-
-**Frecuencia base** & 3.1 GHz  
-
-**Memoria RAM** & 16 GB LPDDR3 (2133 MHz)  
-
-**Sistema Operativo** & macOS Ventura 13.7.8  
-
-\bottomrule
-\end{tabularx}
-
-*Especificaciones técnicas del Equipo 2.*
-
-\renewcommand{\arraystretch}{1.3}
-\begin{tabularx}{0.85\textwidth}{l X}
-\toprule
-**Componente** & **Detalle**  
-
-\midrule
-**Procesador** & AMD Ryzen 7 6800H with Radeon Graphics  
-
-**Núcleos / Hilos** & 16 hilos (8 núcleos físicos)  
-
-**Frecuencia base** & 3.2 GHz  
-
-**Memoria RAM** & 32 GB  
-
-**Sistema Operativo** & Ubuntu (SMP PREEMPT_DYNAMIC Sun Jun 21 01:01:36 UTC 2026 x86_64 GNU/Linux)  
-
-\bottomrule
-\end{tabularx}
+**Integrantes:**
+* Jhovany Badillo Cruz
+* Hugo Miranda Cano
 
 ---
 
-{\Large **Árbol de carpetas proyecto**}
+## Especificaciones de las computadoras
 
-Al descomprimir el archivo tendremos esta configuración de archivos
+### Especificaciones técnicas del Equipo 1
 
-![Árbol](arbol.png)
+| Componente | Detalle |
+| :--- | :--- |
+| **Procesador** | Intel Core i7 de cuatro núcleos |
+| **Núcleos** | 4 núcleos |
+| **Frecuencia base** | 3.1 GHz |
+| **Memoria RAM** | 16 GB LPDDR3 (2133 MHz) |
+| **Sistema Operativo** | macOS Ventura 13.7.8 |
 
-- divider.h: Cabecera que se encarga de calcular los limites de los indices (inferior y superior) para repartir las filas de la matriz a los procesos.
-- matriz$\_a$.txt: Archivo txt de la matriz.
-- merge.h: Cabecera encargada de la mezcla y fusión de subarreglos ordenados.
-- parser.h: Cabecera encargada de leer los datos del archivo txt y transformarlos a un archivo binario mapeado en memoria compartida.
-- project.c: Programa principal
-- sorting.h: Cabecera de ordenamiento que ejecutan los hilos mediante qsort.
-- types.h: Cabecera de definicion de tipos de datos base del proyecto.
+### Especificaciones técnicas del Equipo 2
 
-En el programa principal se realiza la creación de los procesos mediante la llamada al sistema fork(), y cada proceso hijo crea y ejecuta 2 hilos utilizando la función pthread_create().
+| Componente | Detalle |
+| :--- | :--- |
+| **Procesador** | AMD Ryzen 7 6800H with Radeon Graphics |
+| **Núcleos / Hilos** | 16 hilos (8 núcleos físicos) |
+| **Frecuencia base** | 3.2 GHz |
+| **Memoria RAM** | 32 GB |
+| **Sistema Operativo** | Ubuntu (SMP PREEMPT_DYNAMIC Sun Jun 21 01:01:36 UTC 2026 x86_64 GNU/Linux) |
 
-Para el manejo eficiente de los datos se trabajó con archivos binarios mediante la cabecera parser.h, la cual convierte el archivo de texto original (.txt) a formato binario y lo mapea en memoria virtual con mmap para que los procesos puedan acceder a él de forma compartida.
+---
 
-El tiempo de ejecución se midió con la función clock_gettime() de la biblioteca time.h (utilizando CLOCK_MONOTONIC), lo que proporciona una resolución de nanosegundos.
+## Árbol de carpetas proyecto
 
-Finalmente, la cabecera sorting.h define la rutina de ordenamiento que ejecuta cada hilo sobre su subconjunto de datos asignado, utilizando la función estándar qsort() (algoritmo Quicksort).
+Al descomprimir el archivo tendremos esta configuración de archivos:
 
-  
+![Árbol de carpetas](images/arbol.png)
 
-{\Large **Código**}
+* `divider.h`: Cabecera que se encarga de calcular los límites de los índices (inferior y superior) para repartir las filas de la matriz a los procesos.
+* `matriz_a.txt`: Archivo txt de la matriz. 
+* `merge.h`: Cabecera encargada de la mezcla y fusión de subarreglos ordenados.
+* `parser.h`: Cabecera encargada de leer los datos del archivo txt y transformarlos a un archivo binario mapeado en memoria compartida.
+* `project.c`: Programa principal.
+* `sorting.h`: Cabecera de ordenamiento que ejecutan los hilos mediante `qsort`.
+* `types.h`: Cabecera de definición de tipos de datos base del proyecto.
 
-En la linea 4 llamamos a la función fork(), dependiendo del número de cores a utilizar, si ingresamos como parámetro de 4 cores, se crearán 4 procesos.
+En el programa principal se realiza la creación de los procesos mediante la llamada al sistema `fork()`, y cada proceso hijo crea y ejecuta 2 hilos utilizando la función `pthread_create()`.
 
-En la linea 21 definimos el tipo de datos para hilos, cada proceso tendrá dos hilos por defecto. En las lineas 34 y 47 creamos el hilo, con sus respectivos parámetros, hacer notar que utilizamos la función sort definida en la cabecera sorting.h.
+Para el manejo eficiente de los datos se trabajó con archivos binarios mediante la cabecera `parser.h`, la cual convierte el archivo de texto original (`.txt`) a formato binario y lo mapea en memoria virtual con `mmap` para que los procesos puedan acceder a él de forma compartida.
 
+El tiempo de ejecución se midió con la función `clock_gettime()` de la biblioteca `time.h` (utilizando `CLOCK_MONOTONIC`), lo que proporciona una resolución de nanosegundos.
+
+Finalmente, la cabecera `sorting.h` define la rutina de ordenamiento que ejecuta cada hilo sobre su subconjunto de datos asignado, utilizando la función estándar `qsort()` (algoritmo Quicksort).
+
+---
+
+## Código
+
+En la línea 4 llamamos a la función `fork()`, dependiendo del número de cores a utilizar; si ingresamos como parámetro 4 cores, se crearán 4 procesos.
+
+En la línea 21 definimos el tipo de datos para hilos, cada proceso tendrá dos hilos por defecto. En las líneas 34 y 47 creamos el hilo, con sus respectivos parámetros, haciendo notar que utilizamos la función `sort` definida en la cabecera `sorting.h`.
+
+**`project.c`**
 ```c
 ...
 for (i = 0; i < cores; i++)
@@ -172,16 +137,14 @@ for (i = 0; i < cores; i++)
             _exit(EXIT_SUCCESS); /* necessary for the for loop to terminate */
         }
     }
-
-
-
 ...
 ```
 
 Para delegar el trabajo a los hilos POSIX (`pthreads`), se definió la estructura `thread_bundle_t` (líneas 6–11), la cual empaqueta el puntero de memoria compartida en (`data`) junto con los índices inferior (`inf`) y superior (`sup`) que delimitan los datos asignados a cada hilo.
 
-La función `sort()` recibe dicho paquete, calcula la cantidad exacta de elementos a procesar y ejecuta la rutina estándar `qsort()`. El criterio de ordenamiento es ascendente. Finalmente, se operan sobre segmentos de memoria disjuntos (gracias a mmap), cada hilo finaliza su ejecución mediante `pthread_exit(NULL)` sin requerir banderas de sincronización como (*mutex*).
+La función `sort()` recibe dicho paquete, calcula la cantidad exacta de elementos a procesar y ejecuta la rutina estándar `qsort()`. El criterio de ordenamiento es ascendente. Finalmente, se operan sobre segmentos de memoria disjuntos (gracias a `mmap`), cada hilo finaliza su ejecución mediante `pthread_exit(NULL)` sin requerir banderas de sincronización como (*mutex*).
 
+**`sorting.h`**
 ```c
 #include <stdlib.h>
 #include <pthread.h>
@@ -221,9 +184,10 @@ void *sort(void *thread_bundle)
 
 Una vez que los hilos concluyen el ordenamiento local de sus respectivos bloques, la cabecera `merge.h` se encarga de consolidar los subarreglos ordenados mediante dos funciones principales:
 
-- **`merge()`:** Implementa la fusión estándar de dos subarreglos adyacentes delimitados por los índices `[inf, mid]` y `[mid + 1, sup]`.
-- **`merge_partitions()`:** Orquesta la fusión global de todas las particiones.
+* **`merge()`:** Implementa la fusión estándar de dos subarreglos adyacentes delimitados por los índices `[inf, mid]` y `[mid + 1, sup]`.
+* **`merge_partitions()`:** Orquesta la fusión global de todas las particiones.
 
+**`merge.h`**
 ```c
 ...
 
@@ -304,83 +268,53 @@ void merge_partitions(data_t *arr, limits_t *limits, size_t num_partitions)
 
 ---
 
-{\Large **Compilación**}
+## Compilación
 
-Localizarse en la carpeta ../project/, estando en la carpeta
+Localizarse en la carpeta `../project/`, estando en la carpeta.
 
 Compilar de la siguiente manera:
 
-\begin{ubuntuterm}
-(*@\prompt{user@user}{ /project} gcc -o project.o project.c -pthread \cursor@*)
-\end{ubuntuterm}
+```bash
+user@user:~/project$ gcc -o project.o project.c -pthread
+```
 
-Ejecutar el archivo .o, dando los parámetros definidos a continuación:
+Ejecutar el archivo `.o`, dando los parámetros definidos a continuación:
 
-\begin{ubuntuterm}
-(*@\prompt{user@user}{ /project} ./project.o matriz_a.txt 4 y\cursor@*)
-\end{ubuntuterm}
+```bash
+user@user:~/project$ ./project.o matriz_a.txt 4 y
+```
 
-- Primer parámetro es el archivo de texto con la matriz deseada, en este caso, txt dado por el profesor.
-- Segundo parámetro es el número de procesos
-- Tercer parámetro: Se escribirá en un archivo final de texto (y) o solo se ordenará (n)
+* Primer parámetro es el archivo de texto con la matriz deseada, en este caso, txt dado por el profesor.
+* Segundo parámetro es el número de procesos.
+* Tercer parámetro: Se escribirá en un archivo final de texto (`y`) o solo se ordenará (`n`).
 
-Al ejecutar de esta forma se creará el archivo de texto "sorted$\_$matrix.txt"
-el cual contendrá los elementos ordenados.
+Al ejecutar de esta forma se creará el archivo de texto `sorted_matrix.txt` el cual contendrá los elementos ordenados.
 
-![Archivo txt ordenado](sorted.png)
-
----
-
-Archivo visualizado en editores de texto
-
-El archivo se ordenará de forma ascendente esto es de menor a mayor.
-
-![Visualización txt ordenado](seccion_ord1.png)
+![Archivo txt ordenado](images/sorted.png)
 
 ---
 
-{\Large **Resultados**}
+### Archivo visualizado en editores de texto
 
-{\large **Con parámetro "y" escritura de archivo**}
+El archivo se ordenará de forma ascendente, esto es de menor a mayor.
 
-\text{**1 proceso**}
-
-![](resorces1y.png)
-
-![Resultado 1 proceso](timepo1y.png)
-
-Tiempo ordenamiento sort : 211.47 segundos
-
-\text{**8 proceso**}
-
-![](resources8y.png)
-
-![Resultado 8 proceso](timepo8y.png)
-
-![Resultado 8 proceso](top8y.png)
-
-Tiempo ordenamiento sort : 40.31 segundos
+* **Visualización 1:** ![Visualización 1](images/seccion_ord1.png)
+* **Visualización 2:** ![Visualización 2](images/ordenado.PNG)
 
 ---
 
-{\large **Gráfica Procesos vs tiempo de ejecución**}
+## Resultados
 
-![Procesos vs Tiempo Escritura](grafica1y.png)
+### Con parámetro "y" escritura de archivo
 
-Con parámetro "n" sin escritura de archivo
+#### **1 proceso**
 
-\text{**1 proceso**}
+* **Panel resources Ubuntu:** ![Panel resources Ubuntu](images/resorces1y.png)
+* **Tiempos:** ![Tiempos](images/timepo1y.png)
 
-![Resultado 1 proceso](tiempo1n.png)
+> **Tiempo ordenamiento sort:** 211.47 segundos
 
-Tiempo ordenamiento sort : 207.27 segundos
+#### **8 procesos**
 
-\text{**8 proceso**}
-
-![Resultado 8 proceso](timepo8n.png)
-
-Tiempo ordenamiento sort : 40.65 segundos
-
-{\large **Gráfica Procesos vs tiempo de ejecución**}
-
-![Procesos vs Tiempo Sin escritura](grafican.png)
+* **Panel resources Ubuntu:** ![Panel resources Ubuntu](images/resources8y.png)
+* **Tiempos:** ![Tiempos](images/timepo8y.png)
